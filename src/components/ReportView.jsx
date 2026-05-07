@@ -91,7 +91,7 @@ export default function ReportView({ neighbourhood, posts = [], onOpenPost }) {
               <label className="text-xs font-semibold text-muted uppercase tracking-wide mb-2 block">Location (optional)</label>
               <div className="relative">
                 <MapPinIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
-                <input type="text" value={location} onChange={e => setLocation(e.target.value)}
+                <input id="report-location" name="location" type="text" value={location} onChange={e => setLocation(e.target.value)}
                   placeholder="Street name or landmark…"
                   className="w-full bg-light border border-border rounded-xl pl-9 pr-3 py-2.5 text-sm outline-none focus:border-red-400" />
               </div>
@@ -99,7 +99,7 @@ export default function ReportView({ neighbourhood, posts = [], onOpenPost }) {
 
             <div>
               <label className="text-xs font-semibold text-muted uppercase tracking-wide mb-2 block">Description</label>
-              <textarea value={desc} onChange={e => setDesc(e.target.value)}
+              <textarea id="report-description" name="description" value={desc} onChange={e => setDesc(e.target.value)}
                 placeholder="Describe the issue. Include when you noticed it…"
                 rows={3}
                 className="w-full bg-light border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-red-400 resize-none" />

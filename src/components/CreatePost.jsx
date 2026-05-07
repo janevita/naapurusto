@@ -92,7 +92,7 @@ export default function CreatePost({ onClose, onSubmit, neighbourhood, currentUs
               {/* Neighbourhood */}
               <div>
                 <label className="text-xs font-semibold text-muted uppercase tracking-wide mb-2 block">Neighbourhood</label>
-                <select value={area} onChange={e => setArea(e.target.value)}
+                <select id="post-neighbourhood" name="neighbourhood" value={area} onChange={e => setArea(e.target.value)}
                   className="w-full bg-light border border-border rounded-xl px-3 py-2.5 text-sm text-natext outline-none focus:border-primary">
                   {NEIGHBOURHOODS.filter(n => n !== 'All Helsinki').map(n => (
                     <option key={n}>{n}</option>
@@ -103,7 +103,7 @@ export default function CreatePost({ onClose, onSubmit, neighbourhood, currentUs
               {/* Title */}
               <div>
                 <label className="text-xs font-semibold text-muted uppercase tracking-wide mb-2 block">Title</label>
-                <input type="text" value={title} onChange={e => setTitle(e.target.value)}
+                <input id="post-title" name="title" type="text" value={title} onChange={e => setTitle(e.target.value)}
                   placeholder="Short, clear summary…" maxLength={80}
                   className="w-full bg-light border border-border rounded-xl px-3 py-2.5 text-sm text-natext outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
               </div>
@@ -111,7 +111,7 @@ export default function CreatePost({ onClose, onSubmit, neighbourhood, currentUs
               {/* Body */}
               <div>
                 <label className="text-xs font-semibold text-muted uppercase tracking-wide mb-2 block">Details</label>
-                <textarea value={body} onChange={e => setBody(e.target.value)}
+                <textarea id="post-body" name="body" value={body} onChange={e => setBody(e.target.value)}
                   placeholder="What's happening? Be specific about location, time, impact…"
                   rows={4}
                   className="w-full bg-light border border-border rounded-xl px-3 py-2.5 text-sm text-natext outline-none focus:border-primary focus:ring-1 focus:ring-primary resize-none" />
@@ -134,7 +134,7 @@ export default function CreatePost({ onClose, onSubmit, neighbourhood, currentUs
                     <span className="text-sm">Add a photo (optional)</span>
                   </button>
                 )}
-                <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handlePhoto} />
+                <input ref={fileRef} id="post-photo" name="photo" type="file" accept="image/*" className="hidden" onChange={handlePhoto} />
               </div>
 
               {/* Anonymous toggle */}

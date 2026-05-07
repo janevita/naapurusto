@@ -44,7 +44,7 @@ function EditPostModal({ post, onSave, onClose }) {
         <div className="flex flex-col gap-3">
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Type</label>
-            <select value={form.type} onChange={e => set('type', e.target.value)}
+            <select id="edit-type" name="type" value={form.type} onChange={e => set('type', e.target.value)}
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm bg-white outline-none focus:border-primary">
               {Object.entries(POST_TYPES).map(([k, v]) => (
                 <option key={k} value={k}>{v.label}</option>
@@ -54,19 +54,19 @@ function EditPostModal({ post, onSave, onClose }) {
 
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Title</label>
-            <input value={form.title} onChange={e => set('title', e.target.value)}
+            <input id="edit-title" name="title" value={form.title} onChange={e => set('title', e.target.value)}
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary" />
           </div>
 
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Body</label>
-            <textarea value={form.body} onChange={e => set('body', e.target.value)} rows={4}
+            <textarea id="edit-body" name="body" value={form.body} onChange={e => set('body', e.target.value)} rows={4}
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary resize-none" />
           </div>
 
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Neighbourhood</label>
-            <input value={form.neighbourhood} onChange={e => set('neighbourhood', e.target.value)}
+            <input id="edit-neighbourhood" name="neighbourhood" value={form.neighbourhood} onChange={e => set('neighbourhood', e.target.value)}
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary" />
           </div>
 
@@ -75,7 +75,7 @@ function EditPostModal({ post, onSave, onClose }) {
             <>
               <div>
                 <label className="text-xs font-semibold text-muted block mb-1">Status label</label>
-                <input value={form.status} onChange={e => set('status', e.target.value)}
+                <input id="edit-status" name="status" value={form.status} onChange={e => set('status', e.target.value)}
                   placeholder="e.g. City notified, Under review"
                   className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary" />
               </div>
@@ -94,6 +94,7 @@ function EditPostModal({ post, onSave, onClose }) {
                   <div className="mt-2">
                     <label className="text-xs font-semibold text-muted block mb-1">Resolution details</label>
                     <textarea
+                      id="edit-resolution" name="resolution"
                       value={form.resolution}
                       onChange={e => set('resolution', e.target.value)}
                       placeholder="Describe how and when the issue was resolved…"
@@ -108,7 +109,7 @@ function EditPostModal({ post, onSave, onClose }) {
 
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Image URL (optional)</label>
-            <input value={form.imageUrl} onChange={e => set('imageUrl', e.target.value)}
+            <input id="edit-imageUrl" name="imageUrl" value={form.imageUrl} onChange={e => set('imageUrl', e.target.value)}
               placeholder="https://picsum.photos/seed/example/600/340"
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary" />
           </div>
@@ -186,7 +187,7 @@ function EditIdeaModal({ idea, onSave, onClose }) {
 
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Update note (optional)</label>
-            <textarea value={note} onChange={e => setNote(e.target.value)} rows={3}
+            <textarea id="impl-note" name="note" value={note} onChange={e => setNote(e.target.value)} rows={3}
               placeholder={`Add a note about this ${selectedStage?.label?.toLowerCase()} update…`}
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary resize-none" />
           </div>

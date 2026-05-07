@@ -166,6 +166,8 @@ export default function PostModal({ post, onClose, onVote, currentUser }) {
                   {userInitials}
                 </div>
                 <input
+                  id="comment-text"
+                  name="comment"
                   type="text"
                   value={commentText}
                   onChange={e => setCommentText(e.target.value)}

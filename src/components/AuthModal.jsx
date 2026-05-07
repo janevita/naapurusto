@@ -99,7 +99,7 @@ export default function AuthModal({ onClose, onLogin }) {
           {mode === 'signup' && (
             <div>
               <label className="text-xs font-semibold text-muted block mb-1">Full name</label>
-              <input value={form.name} onChange={e => set('name', e.target.value)}
+              <input id="auth-name" name="name" autoComplete="name" value={form.name} onChange={e => set('name', e.target.value)}
                 placeholder="Your name"
                 className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary transition-colors" />
             </div>
@@ -107,7 +107,7 @@ export default function AuthModal({ onClose, onLogin }) {
 
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Email</label>
-            <input value={form.email} onChange={e => set('email', e.target.value)}
+            <input id="auth-email" name="email" autoComplete="email" value={form.email} onChange={e => set('email', e.target.value)}
               placeholder="you@example.com" type="email"
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary transition-colors" />
           </div>
@@ -115,7 +115,7 @@ export default function AuthModal({ onClose, onLogin }) {
           {mode === 'signup' && (
             <div>
               <label className="text-xs font-semibold text-muted block mb-1">Neighbourhood</label>
-              <select value={form.neighbourhood} onChange={e => set('neighbourhood', e.target.value)}
+              <select id="auth-neighbourhood" name="neighbourhood" value={form.neighbourhood} onChange={e => set('neighbourhood', e.target.value)}
                 className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary transition-colors bg-white">
                 {NEIGHBOURHOODS.filter(n => n !== 'All Helsinki').map(n => (
                   <option key={n} value={n}>{n}</option>
@@ -126,7 +126,7 @@ export default function AuthModal({ onClose, onLogin }) {
 
           <div>
             <label className="text-xs font-semibold text-muted block mb-1">Password</label>
-            <input value={form.password} onChange={e => set('password', e.target.value)}
+            <input id="auth-password" name="password" autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} value={form.password} onChange={e => set('password', e.target.value)}
               placeholder={mode === 'signup' ? 'Create a password' : 'Your password'}
               type="password"
               className="w-full border border-border rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary transition-colors" />
