@@ -44,10 +44,21 @@ export default function PostCard({ post, onOpenPost, onVote, currentUser }) {
         <h3 className="font-semibold text-natext text-[15px] leading-snug mb-1">{post.title}</h3>
         <p className="text-sm text-muted line-clamp-2 leading-relaxed">{post.body}</p>
 
-        {/* Status badge for reports */}
-        {post.status && (
-          <div className="mt-2 inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-medium px-2.5 py-1 rounded-full border border-green-200">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+        {/* Status / solved badge for reports */}
+        {post.type === 'report' && post.solved && (
+          <div className="mt-2 flex items-start gap-2 bg-green-50 border border-green-200 rounded-xl px-3 py-2">
+            <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 mt-1" />
+            <div className="min-w-0">
+              <span className="text-xs font-bold text-green-700">Solved</span>
+              {post.resolution && (
+                <p className="text-xs text-green-700/80 mt-0.5 line-clamp-2 leading-relaxed">{post.resolution}</p>
+              )}
+            </div>
+          </div>
+        )}
+        {post.type === 'report' && !post.solved && post.status && (
+          <div className="mt-2 inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-xs font-medium px-2.5 py-1 rounded-full border border-amber-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
             {post.status}
           </div>
         )}

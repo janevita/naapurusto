@@ -9,6 +9,15 @@ export const POST_TYPES = {
   event:  { label: 'Event',  color: 'bg-mid text-white',     dot: 'bg-mid'     },
 }
 
+// Implementation status stages for forwarded ideas
+export const IMPL_STAGES = [
+  { id: 'forwarded',       label: 'Forwarded',       short: 'Forwarded to council' },
+  { id: 'council_review',  label: 'Council review',  short: 'Under council review' },
+  { id: 'budget_approved', label: 'Budget approved', short: 'Funding confirmed'    },
+  { id: 'in_progress',     label: 'In progress',     short: 'Work has started'     },
+  { id: 'completed',       label: 'Completed',       short: 'Done!'                },
+]
+
 export const MOCK_USERS = [
   { id:'u1', name:'Jane Vita',  initials:'JV', neighbourhood:'Kallio',      bio:'Founder of Naapurusto. Making cities more connected.',     posts:12, votes:134, badge:'Founder',       verified:true  },
   { id:'u2', name:'Matti K.',   initials:'MK', neighbourhood:'Kallio',      bio:'Lifelong Kallio resident. Cyclist, urban planner nerd.',   posts:34, votes:312, badge:'Local Hero',    verified:true  },
@@ -46,7 +55,8 @@ export const MOCK_POSTS = [
     title:'Broken streetlight — Vaasankatu corner',
     body:'The lamp at the corner of Vaasankatu and Porthaninkatu has been out for 3 nights. The intersection is dark and feels unsafe, especially after rain.',
     imageUrl:null,
-    votes:23, commentCount:5, tags:['lighting','safety'], anonymous:true, status:'City notified', voted:null,
+    votes:23, commentCount:5, tags:['lighting','safety'], anonymous:true,
+    status:'City notified', solved:false, resolution:null, voted:null,
     lat:60.1831, lng:24.9487,
   },
   {
@@ -76,7 +86,8 @@ export const MOCK_POSTS = [
     title:'Graffiti on building facade — Hämeentie 42',
     body:'Large tags appeared overnight on the apartment building facade. Not the first time this wall has been hit. Reported to the property manager but no response yet.',
     imageUrl:'https://picsum.photos/seed/graffiti-sorn/600/340',
-    votes:12, commentCount:3, tags:['graffiti','maintenance'], anonymous:true, status:'Under review', voted:null,
+    votes:12, commentCount:3, tags:['graffiti','maintenance'], anonymous:true,
+    status:'Under review', solved:false, resolution:null, voted:null,
     lat:60.1814, lng:24.9623,
   },
   {
@@ -116,7 +127,10 @@ export const MOCK_POSTS = [
     title:'Pothole at Liisankatu / Unioninkatu — causing bike falls',
     body:"Large pothole at the intersection has caused at least two bike falls this week. Very visible during rush hour. The tram rails nearby make it dangerous to swerve.",
     imageUrl:null,
-    votes:34, commentCount:11, tags:['roads','cycling','safety'], anonymous:true, status:'City notified', voted:null,
+    votes:34, commentCount:11, tags:['roads','cycling','safety'], anonymous:true,
+    status:'Resolved', solved:true,
+    resolution:'Pothole patched by city road maintenance on 3 May. Road surface levelled and warning markings repainted. Follow-up inspection scheduled for June.',
+    resolvedAt:'2 days ago', voted:null,
     lat:60.1714, lng:24.9534,
   },
   {
@@ -129,15 +143,66 @@ export const MOCK_POSTS = [
     votes:41, commentCount:6, tags:['culture','events','history'], anonymous:false, voted:null,
     lat:60.1652, lng:24.9601,
   },
+  {
+    id:11, type:'report', authorId:null,
+    author:{ name:'Anonymous', initials:'?', verified:false },
+    neighbourhood:'Kallio', timeAgo:'3 days ago',
+    title:'Overflowing bins at Fleminginkatu tram stop',
+    body:'Bins at the tram stop have been overflowing for 3 days. Rubbish on the pavement, smells bad in the warm weather. Reported to city waste services.',
+    imageUrl:null,
+    votes:19, commentCount:4, tags:['waste','maintenance'], anonymous:true,
+    status:'Resolved', solved:true,
+    resolution:'City waste management emptied and replaced all bins at this stop on 4 May. Extra emptying scheduled twice weekly through summer.',
+    resolvedAt:'1 day ago', voted:null,
+    lat:60.1851, lng:24.9503,
+  },
 ]
 
 export const MOCK_IDEAS = [
-  { id:101, title:'Add a dog water station at Hakaniemi market square',           author:'Tuula R.',  neighbourhood:'Kallio',      votes:142, comments:28, budget:'€400',   status:'voting',   daysLeft:8,  userVoted:false },
-  { id:102, title:'Monthly neighbourhood skill-swap event',                       author:'Jussi L.',  neighbourhood:'Töölö',       votes:98,  comments:15, budget:'€0',     status:'voting',   daysLeft:14, userVoted:true  },
-  { id:103, title:'Community seed library in Vallila library',                    author:'Mirja T.',  neighbourhood:'Vallila',     votes:87,  comments:19, budget:'€1,200', status:'voting',   daysLeft:5,  userVoted:false },
-  { id:104, title:'Public outdoor chess tables in Esplanadi park',                author:'Risto H.',  neighbourhood:'Kamppi',      votes:203, comments:44, budget:'€2,500', status:'approved', daysLeft:0,  userVoted:false },
-  { id:105, title:'Street art wall — commissioned murals on Sörnäinen underpass', author:'Anonymous', neighbourhood:'Sörnäinen',   votes:176, comments:37, budget:'€5,000', status:'approved', daysLeft:0,  userVoted:true  },
-  { id:106, title:'Night-time lighting at Eläintarhanlahti bay path',             author:'Kaisa V.',  neighbourhood:'Kallio',      votes:54,  comments:11, budget:'€3,200', status:'voting',   daysLeft:21, userVoted:false },
+  {
+    id:101, title:'Add a dog water station at Hakaniemi market square',
+    author:'Tuula R.',  neighbourhood:'Kallio',    votes:142, comments:28, budget:'€400',
+    status:'voting', daysLeft:8, userVoted:false,
+  },
+  {
+    id:102, title:'Monthly neighbourhood skill-swap event',
+    author:'Jussi L.',  neighbourhood:'Töölö',     votes:98,  comments:15, budget:'€0',
+    status:'voting', daysLeft:14, userVoted:true,
+  },
+  {
+    id:103, title:'Community seed library in Vallila library',
+    author:'Mirja T.',  neighbourhood:'Vallila',   votes:87,  comments:19, budget:'€1,200',
+    status:'voting', daysLeft:5, userVoted:false,
+  },
+  {
+    id:104, title:'Public outdoor chess tables in Esplanadi park',
+    author:'Risto H.',  neighbourhood:'Kamppi',    votes:203, comments:44, budget:'€2,500',
+    status:'forwarded', daysLeft:0, userVoted:false,
+    forwardedAt:'15 Apr 2026',
+    implementationStatus:'in_progress',
+    implementationUpdates:[
+      { stage:'forwarded',       date:'15 Apr', note:'Passed vote with 203 supports. Forwarded to Kamppi district council.' },
+      { stage:'council_review',  date:'22 Apr', note:'Council added to April agenda. Reviewed and approved in principle.' },
+      { stage:'budget_approved', date:'28 Apr', note:'€2,500 allocated from neighbourhood improvement fund.' },
+      { stage:'in_progress',     date:'5 May',  note:'Tables ordered from manufacturer. Installation planned for late May.' },
+    ],
+  },
+  {
+    id:105, title:'Street art wall — commissioned murals on Sörnäinen underpass',
+    author:'Anonymous', neighbourhood:'Sörnäinen', votes:176, comments:37, budget:'€5,000',
+    status:'forwarded', daysLeft:0, userVoted:true,
+    forwardedAt:'20 Apr 2026',
+    implementationStatus:'council_review',
+    implementationUpdates:[
+      { stage:'forwarded',      date:'20 Apr', note:'176 supports crossed the threshold. Forwarded to Sörnäinen district council.' },
+      { stage:'council_review', date:'30 Apr', note:'Under review by council arts committee. Public comment period open until 15 May.' },
+    ],
+  },
+  {
+    id:106, title:'Night-time lighting at Eläintarhanlahti bay path',
+    author:'Kaisa V.',  neighbourhood:'Kallio',    votes:54,  comments:11, budget:'€3,200',
+    status:'voting', daysLeft:21, userVoted:false,
+  },
 ]
 
 export const COMMUNITY_STATS = {

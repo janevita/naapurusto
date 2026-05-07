@@ -162,7 +162,7 @@ export default function App() {
       {/* Main views */}
       <div className={tab === 'map' ? 'fixed inset-0 top-14 bottom-14 z-0' : ''}>
         {tab === 'feed'      && <FeedView posts={posts} onVote={handleVote} neighbourhood={neighbourhood} onOpenPost={handleOpenPost} currentUser={currentUser} />}
-        {tab === 'report'    && <ReportView neighbourhood={neighbourhood} />}
+        {tab === 'report'    && <ReportView neighbourhood={neighbourhood} posts={posts} onOpenPost={handleOpenPost} />}
         {tab === 'map'       && <MapView posts={posts} onOpenPost={handleOpenPost} />}
         {tab === 'ideas'     && <IdeasView neighbourhood={neighbourhood} ideas={ideas} />}
         {tab === 'community' && <CommunityView neighbourhood={neighbourhood} onOpenProfile={handleOpenProfile} />}

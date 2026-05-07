@@ -93,9 +93,22 @@ export default function PostModal({ post, onClose, onVote, currentUser }) {
               <p className="text-sm text-natext leading-relaxed">{post.body}</p>
             </div>
 
-            {post.status && (
-              <div className="flex items-center gap-2 bg-green-50 text-green-700 text-sm font-medium px-3 py-2.5 rounded-xl border border-green-200">
-                <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0" />
+            {/* Report status & resolution */}
+            {post.type === 'report' && post.solved && (
+              <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-500 flex-shrink-0" />
+                  <span className="text-sm font-bold text-green-700">Issue Solved</span>
+                  {post.resolvedAt && <span className="text-xs text-green-600 ml-auto">{post.resolvedAt}</span>}
+                </div>
+                {post.resolution && (
+                  <p className="text-sm text-green-800 leading-relaxed pl-4">{post.resolution}</p>
+                )}
+              </div>
+            )}
+            {post.type === 'report' && !post.solved && post.status && (
+              <div className="flex items-center gap-2 bg-amber-50 text-amber-700 text-sm font-medium px-3 py-2.5 rounded-xl border border-amber-200">
+                <span className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0" />
                 Status: {post.status}
               </div>
             )}
