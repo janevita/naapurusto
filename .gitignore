@@ -1,8 +1,7 @@
 # Dependencies
 node_modules/
 
-# Build output (GitHub Actions builds this automatically)
-dist/
+# Wrong build (naapurusto-app base path)
 dist_new/
 
 # Vite dev artefacts
