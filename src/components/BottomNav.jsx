@@ -1,10 +1,11 @@
-import { HomeIcon, AlertIcon, LightbulbIcon, UsersIcon } from './Icons.jsx'
+import { HomeIcon, AlertIcon, LightbulbIcon, UsersIcon, MapIcon } from './Icons.jsx'
 
 const TABS = [
-  { id: 'feed',      label: 'Feed',      Icon: HomeIcon },
-  { id: 'report',   label: 'Report',    Icon: AlertIcon },
+  { id: 'feed',      label: 'Feed',      Icon: HomeIcon      },
+  { id: 'report',   label: 'Report',    Icon: AlertIcon     },
+  { id: 'map',      label: 'Map',       Icon: MapIcon       },
   { id: 'ideas',    label: 'Ideas',     Icon: LightbulbIcon },
-  { id: 'community',label: 'Community', Icon: UsersIcon },
+  { id: 'community',label: 'Community', Icon: UsersIcon     },
 ]
 
 export default function BottomNav({ active, onChange }) {
@@ -17,23 +18,15 @@ export default function BottomNav({ active, onChange }) {
             <button
               key={id}
               onClick={() => onChange(id)}
-              className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 group"
+              className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 relative group"
             >
-              <Icon
-                className={`w-6 h-6 transition-colors ${
-                  isActive ? 'text-primary' : 'text-muted group-hover:text-primary'
-                }`}
-              />
-              <span
-                className={`text-[10px] font-medium transition-colors ${
-                  isActive ? 'text-primary' : 'text-muted group-hover:text-primary'
-                }`}
-              >
-                {label}
-              </span>
               {isActive && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-primary rounded-b-full" />
               )}
+              <Icon className={`w-5 h-5 transition-colors ${isActive ? 'text-primary' : 'text-muted group-hover:text-primary'}`} />
+              <span className={`text-[10px] font-medium transition-colors ${isActive ? 'text-primary' : 'text-muted group-hover:text-primary'}`}>
+                {label}
+              </span>
             </button>
           )
         })}

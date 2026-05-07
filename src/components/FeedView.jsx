@@ -1,14 +1,11 @@
 import { useState } from 'react'
-import { POST_TYPES } from '../data/mock.js'
 import PostCard from './PostCard.jsx'
-import PostModal from './PostModal.jsx'
 
 const FILTERS = ['All', 'News', 'Reports', 'Ideas', 'Events']
 const FILTER_MAP = { All: null, News: 'news', Reports: 'report', Ideas: 'idea', Events: 'event' }
 
-export default function FeedView({ posts, onVote, neighbourhood }) {
-  const [filter, setFilter]       = useState('All')
-  const [expanded, setExpanded]   = useState(null)
+export default function FeedView({ posts, onVote, neighbourhood, onOpenPost, currentUser }) {
+  const [filter, setFilter] = useState('All')
 
   const filtered = posts.filter(p => {
     const matchType = !FILTER_MAP[filter] || p.type === FILTER_MAP[filter]
@@ -37,7 +34,7 @@ export default function FeedView({ posts, onVote, neighbourhood }) {
       </div>
 
       {/* Feed */}
-      <div className="max-w-lg mx-auto px-4 pt-4 space-y-3">
+      <div className="max-w-lg mx-auto px-4 pt-4">
         {filtered.length === 0 ? (
           <div className="text-center py-16">
             <div className="text-4xl mb-3">🏘️</div>
@@ -49,20 +46,13 @@ export default function FeedView({ posts, onVote, neighbourhood }) {
             <PostCard
               key={post.id}
               post={post}
-              onExpand={setExpanded}
+              onOpenPost={onOpenPost}
               onVote={onVote}
+              currentUser={currentUser}
             />
           ))
         )}
       </div>
-
-      {expanded && (
-        <PostModal
-          post={expanded}
-          onClose={() => setExpanded(null)}
-          onVote={(id, dir) => { onVote(id, dir); setExpanded(p => ({ ...p, voted: dir })) }}
-        />
-      )}
     </div>
   )
 }
