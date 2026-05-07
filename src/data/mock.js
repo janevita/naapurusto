@@ -203,6 +203,65 @@ export const MOCK_IDEAS = [
     author:'Kaisa V.',  neighbourhood:'Kallio',    votes:54,  comments:11, budget:'€3,200',
     status:'voting', daysLeft:21, userVoted:false,
   },
+
+  // ── Forwarded ideas ────────────────────────────────────────────────────
+
+  // Stage: forwarded (just sent to council)
+  {
+    id:107, title:'Free bicycle repair station at Kallio library entrance',
+    author:'Matti K.',  neighbourhood:'Kallio',    votes:162, comments:31, budget:'€800',
+    status:'forwarded', daysLeft:0, userVoted:true,
+    forwardedAt:'2 May 2026',
+    implementationStatus:'forwarded',
+    implementationUpdates:[
+      { stage:'forwarded', date:'2 May', note:'162 residents voted in favour. Proposal package submitted to Kallio district office.' },
+    ],
+  },
+
+  // Stage: budget_approved (council said yes, money confirmed)
+  {
+    id:108, title:'Covered waiting shelter at Sörnäinen metro bus stop',
+    author:'Aino V.',   neighbourhood:'Sörnäinen', votes:189, comments:42, budget:'€4,500',
+    status:'forwarded', daysLeft:0, userVoted:false,
+    forwardedAt:'8 Mar 2026',
+    implementationStatus:'budget_approved',
+    implementationUpdates:[
+      { stage:'forwarded',       date:'8 Mar',  note:'Passed vote with 189 supports. Sent to Sörnäinen district council.' },
+      { stage:'council_review',  date:'18 Mar', note:'Reviewed by infrastructure committee. Unanimously approved.' },
+      { stage:'budget_approved', date:'1 Apr',  note:'€4,500 confirmed from Helsinki transport improvement budget. Procurement process starting.' },
+    ],
+  },
+
+  // Stage: completed (fully done!)
+  {
+    id:109, title:'Community notice board at Töölönlahti park south entrance',
+    author:'Sanna P.',  neighbourhood:'Töölö',     votes:134, comments:22, budget:'€600',
+    status:'forwarded', daysLeft:0, userVoted:false,
+    forwardedAt:'10 Jan 2026',
+    implementationStatus:'completed',
+    implementationUpdates:[
+      { stage:'forwarded',       date:'10 Jan', note:'134 supports. Forwarded to Töölö district council for implementation.' },
+      { stage:'council_review',  date:'20 Jan', note:'Approved by council. Small project fast-tracked to parks department.' },
+      { stage:'budget_approved', date:'28 Jan', note:'€600 approved from parks maintenance budget.' },
+      { stage:'in_progress',     date:'10 Feb', note:'Notice board ordered. Installation team scheduled for mid-February.' },
+      { stage:'completed',       date:'18 Feb', note:'Board installed and operational. Residents can now post local notices. Thank you to everyone who voted!' },
+    ],
+  },
+
+  // Stage: in_progress (second example, different neighbourhood)
+  {
+    id:110, title:'Outdoor table tennis tables at Vallila community garden',
+    author:'Petri H.',  neighbourhood:'Vallila',   votes:211, comments:55, budget:'€1,800',
+    status:'forwarded', daysLeft:0, userVoted:true,
+    forwardedAt:'3 Apr 2026',
+    implementationStatus:'in_progress',
+    implementationUpdates:[
+      { stage:'forwarded',       date:'3 Apr',  note:'211 votes — highest support ever in Vallila. Forwarded to district council.' },
+      { stage:'council_review',  date:'10 Apr', note:'Reviewed and approved. Council praised strong community turnout.' },
+      { stage:'budget_approved', date:'17 Apr', note:'€1,800 from neighbourhood sports fund. Equipment supplier selected.' },
+      { stage:'in_progress',     date:'28 Apr', note:'Two weatherproof tables delivered. Concrete base work underway. Expected completion: mid-May.' },
+    ],
+  },
 ]
 
 export const COMMUNITY_STATS = {
