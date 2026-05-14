@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naapurusto — Your Neighborhood. Your Voice.</title>
+<style>
+  :root {
+    --dark:    #0A3D52;
+    --primary: #0D7A8C;
+    --mid:     #1CA8BB;
+    --accent:  #F2A541;
+    --light:   #EAF4F6;
+    --text:    #1A2E35;
+    --muted:   #5A7A85;
+    --border:  #C8DDE2;
+    --white:   #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: #F7FAFB; }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--dark);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--accent);
+  }
+  .logo { font-size: 22px; font-weight: 800; color: var(--white); letter-spacing: 2px; text-transform: uppercase; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: #97C4CC; text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--accent);
+    color: var(--dark);
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+    transition: opacity .2s;
+  }
+  .nav-cta:hover { opacity: .88; }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+  .full-bleed { max-width: none; padding: 0; }
+  .section-label { font-size: 12px; font-weight: 700; color: var(--mid); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  h1 { font-size: 52px; font-weight: 800; color: var(--dark); line-height: 1.1; }
+  h2 { font-size: 36px; font-weight: 700; color: var(--dark); margin-bottom: 16px; }
+  h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .lead { font-size: 18px; color: var(--muted); line-height: 1.7; max-width: 640px; }
+
+  /* ── HERO ── */
+  .hero-section {
+    background: var(--dark);
+    padding: 0;
+    max-width: none;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 90px 40px 0;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 60px;
+    align-items: end;
+  }
+  .hero-content { padding-bottom: 90px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(242,165,65,.15);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero-content h1 { color: var(--white); font-size: 58px; margin-bottom: 20px; }
+  .hero-content h1 em { color: var(--accent); font-style: normal; }
+  .hero-content p { font-size: 18px; color: #97C4CC; line-height: 1.7; margin-bottom: 36px; max-width: 520px; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--dark); padding: 14px 28px;
+    border-radius: 8px; font-weight: 700; font-size: 15px; border: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: .88; }
+  .btn-secondary {
+    background: transparent; color: var(--white); padding: 14px 28px;
+    border-radius: 8px; font-weight: 600; font-size: 15px;
+    border: 1.5px solid rgba(255,255,255,.3); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; transition: all .2s;
+  }
+  .btn-secondary:hover { border-color: var(--white); }
+
+  /* ── PHONE MOCKUP ── */
+  .phone-wrap { display: flex; justify-content: center; }
+  .phone {
+    width: 300px;
+    background: #0F1E28;
+    border-radius: 40px;
+    border: 8px solid #1A3040;
+    box-shadow: 0 40px 80px rgba(0,0,0,.5);
+    overflow: hidden;
+    transform: translateY(20px);
+  }
+  .phone-notch {
+    background: #0F1E28;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .phone-notch::after {
+    content: '';
+    width: 60px;
+    height: 10px;
+    background: #000;
+    border-radius: 10px;
+  }
+  .phone-screen {
+    background: #F0F7F8;
+    min-height: 580px;
+    overflow: hidden;
+  }
+  .app-header {
+    background: var(--dark);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .app-logo { font-size: 14px; font-weight: 800; color: var(--white); letter-spacing: 1.5px; }
+  .app-loc { font-size: 11px; color: var(--mid); display: flex; align-items: center; gap: 4px; }
+  .loc-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .feed-post {
+    background: var(--white);
+    margin: 8px;
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid var(--border);
+  }
+  .post-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .post-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--white);
+  }
+  .post-author { font-size: 11px; font-weight: 600; color: var(--dark); }
+  .post-location { font-size: 10px; color: var(--muted); }
+  .post-badge {
+    margin-left: auto;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 100px;
+    border: 1px solid;
+  }
+  .badge-local { color: var(--primary); border-color: var(--primary); }
+  .badge-anon  { color: var(--muted); border-color: var(--muted); }
+  .badge-biz   { color: var(--accent); border-color: var(--accent); }
+  .post-text { font-size: 11px; line-height: 1.5; color: var(--text); margin-bottom: 8px; }
+  .post-img {
+    width: 100%; border-radius: 6px; height: 90px;
+    object-fit: cover; background: var(--light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .post-actions { display: flex; gap: 12px; margin-top: 8px; }
+  .post-action { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 3px; cursor: pointer; }
+  .post-action:hover { color: var(--primary); }
+  .app-compose {
+    background: var(--dark);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .compose-bar {
+    flex: 1;
+    background: rgba(255,255,255,.1);
+    border-radius: 20px;
+    padding: 7px 12px;
+    font-size: 10px;
+    color: rgba(255,255,255,.5);
+  }
+  .compose-icons { display: flex; gap: 8px; }
+  .c-icon { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
+  .app-tabs {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 8px 0 4px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .app-tab { text-align: center; font-size: 9px; color: var(--muted); cursor: pointer; }
+  .app-tab.active { color: var(--primary); }
+  .app-tab .tab-icon { font-size: 16px; display: block; }
+
+  /* ── STATS BAND ── */
+  .stats-band {
+    background: var(--primary);
+    padding: 50px 40px;
+  }
+  .stats-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    text-align: center;
+  }
+  .stat-item { padding: 20px; border-right: 1px solid rgba(255,255,255,.2); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 42px; font-weight: 800; color: var(--white); }
+  .stat-label { font-size: 14px; color: rgba(255,255,255,.7); margin-top: 4px; }
+
+  /* ── HOW IT WORKS ── */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+  .step {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px 24px;
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .step:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(13,58,82,.1); }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--primary); color: var(--white);
+    font-size: 16px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .step-icon { font-size: 32px; margin-bottom: 12px; }
+  .step h3 { margin-bottom: 8px; }
+  .step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ── ECOSYSTEM ── */
+  .ecosystem { background: var(--dark); padding: 80px 40px; }
+  .ecosystem-inner { max-width: 1100px; margin: 0 auto; }
+  .ecosystem-inner .section-label { color: var(--mid); }
+  .ecosystem-inner h2 { color: var(--white); }
+  .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .eco-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(28,168,187,.3);
+    border-radius: 12px;
+    padding: 28px;
+    transition: background .2s;
+  }
+  .eco-card:hover { background: rgba(255,255,255,.1); }
+  .eco-icon { font-size: 36px; margin-bottom: 16px; }
+  .eco-card h3 { color: var(--white); margin-bottom: 8px; }
+  .eco-card p { font-size: 13px; color: #97C4CC; line-height: 1.7; }
+  .eco-contrib { margin-top: 16px; }
+  .eco-contrib span { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+  .eco-tag {
+    display: inline-block;
+    background: rgba(13,122,140,.3);
+    color: var(--mid);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin: 2px;
+  }
+
+  /* ── FEATURES ── */
+  .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+  .feature-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 20px;
+    transition: box-shadow .2s;
+  }
+  .feature-card:hover { box-shadow: 0 8px 24px rgba(13,58,82,.08); }
+  .feature-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: var(--light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+  .feature-card h3 { margin-bottom: 6px; }
+  .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── BUSINESS MODEL ── */
+  .biz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .biz-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-top: 4px solid;
+    text-align: center;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .biz-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(13,58,82,.1); }
+  .biz-card h3 { margin: 16px 0 8px; }
+  .biz-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .biz-tag { display: inline-block; background: var(--light); color: var(--primary); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; margin-top: 16px; }
+  .biz-icon { font-size: 38px; }
+
+  /* ── ROADMAP ── */
+  .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 48px; position: relative; }
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: calc(50% / 3);
+    right: calc(50% / 3);
+    height: 3px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .phase { padding: 0 16px; text-align: center; }
+  .phase-dot {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; color: var(--white);
+    margin: 0 auto 24px;
+    position: relative; z-index: 1;
+    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  }
+  .phase-period { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .phase h3 { margin-bottom: 12px; }
+  .phase ul { list-style: none; text-align: left; }
+  .phase li { font-size: 13px; color: var(--muted); padding: 4px 0 4px 16px; position: relative; line-height: 1.5; }
+  .phase li::before { content: '›'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+  .phase-target {
+    margin-top: 16px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--dark) 0%, #0D7A8C 100%);
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .cta-section h2 { color: var(--white); font-size: 42px; margin-bottom: 16px; }
+  .cta-section p { color: #97C4CC; font-size: 18px; margin-bottom: 40px; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .app-store-btn {
+    background: var(--white);
+    color: var(--dark);
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border: none;
+    transition: opacity .2s;
+  }
+  .app-store-btn:hover { opacity: .9; }
+  .app-store-icon { font-size: 24px; }
+  .app-store-sub { font-size: 10px; font-weight: 400; display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #071F2A;
+    padding: 50px 40px 30px;
+    color: #5A7A85;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-brand .logo { font-size: 18px; }
+  .footer-brand p { font-size: 13px; margin-top: 12px; line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { color: var(--white); font-size: 13px; margin-bottom: 16px; }
+  .footer-col a { display: block; color: var(--muted); font-size: 13px; margin-bottom: 10px; text-decoration: none; transition: color .2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 24px; display: flex; justify-content: space-between; font-size: 12px; }
+
+  /* ── APP MOCKUP SECTION ── */
+  .mockup-section { background: var(--light); }
+  .mockup-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .screen-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+  .screen-tab {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color .2s;
+  }
+  .screen-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .screen-content { display: none; }
+  .screen-content.active { display: block; }
+
+  /* Tablet mockup */
+  .tablet {
+    background: #0F1E28;
+    border-radius: 20px;
+    border: 8px solid #1A3040;
+    box-shadow: 0 24px 60px rgba(0,0,0,.3);
+    overflow: hidden;
+    width: 100%;
+  }
+  .tablet-screen { background: var(--white); }
+  .tablet-header {
+    background: var(--dark);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .tablet-logo { font-size: 14px; font-weight: 800; color: var(--white); letter-spacing: 1.5px; }
+  .t-search {
+    flex: 1;
+    background: rgba(255,255,255,.12);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,.5);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tablet-content { padding: 14px; }
+  .t-posts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .t-post {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid var(--border);
+  }
+  .t-post h5 { font-size: 11px; color: var(--dark); margin-bottom: 4px; }
+  .t-post p { font-size: 10px; color: var(--muted); line-height: 1.5; }
+  .t-post-meta { font-size: 9px; color: var(--mid); margin-top: 6px; }
+  .t-map {
+    background: linear-gradient(135deg, #C8DDE2 0%, #EAF4F6 100%);
+    border-radius: 8px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  /* ── CIVIC IMPACT MODEL ── */
+  .impact-header,
+  .impact-row { display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 1.5fr; gap: 3px; margin-bottom: 3px; }
+  .impact-hcell {
+    background: #153C4A;
+    color: var(--white);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 10px 14px; text-align: center;
+  }
+  .impact-hcell:first-child { background: rgba(255,255,255,.06); color: var(--accent); }
+  .impact-activity {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px; color: var(--white);
+    font-weight: 700; font-size: 13px; line-height: 1.5;
+  }
+  .tier-num {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(0,0,0,.22); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+  .impact-cell {
+    background: rgba(255,255,255,.06);
+    padding: 16px 14px;
+    font-size: 12.5px; color: #B8D8DD;
+    line-height: 1.5; display: flex; align-items: center;
+  }
+  .impact-row:nth-child(even) .impact-cell { background: rgba(255,255,255,.03); }
+  .impact-assumptions { margin-top: 20px; font-size: 12px; color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">NAAP<span>.</span>URUSTO</div>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#features">Features</a>
+    <a href="#impact">Impact Model</a>
+    <a href="#ecosystem">Ecosystem</a>
+    <a href="#business">Business Model</a>
+    <a href="#roadmap">Roadmap</a>
+  </div>
+  <button class="nav-cta">Join the Beta</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero-section full-bleed">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">🌍 Hyperlocal Community Platform</div>
+      <h1>Your <em>neighborhood</em>, in your pocket.</h1>
+      <p>Naapurusto connects you to everything happening on your street — news, tips, reports, and the neighbors you've never met. Location first. Always.</p>
+      <div class="hero-actions">
+        <button class="btn-primary">📱 Get Early Access</button>
+        <button class="btn-secondary">▶ See How It Works</button>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="app-header">
+            <div>
+              <div class="app-logo">NAAPURUSTO</div>
+            </div>
+            <div class="app-loc"><div class="loc-dot"></div> Kallio, 500m</div>
+          </div>
+
+          <div class="feed-post">
+            <div class="post-meta">
+              <div class="post-avatar" style="background:#0D7A8C">MK</div>
+              <div>
+                <div class="post-author">Mia K.</div>
+                <div class="post-location">📍 Fleminginkatu</div>
+              </div>
+              <div class="post-badge badge-local">✓ Local</div>
+            </div>
+            <div class="post-img">🚧</div>
+            <div class="post-text" style="margin-top:8px">Roadworks on Fleminginkatu are done! Path fully open again. Took long enough 😅</div>
+            <div class="post-actions">
+              <span class="post-action">👍 24</span>
+              <span class="post-action">💬 7</span>
+              <span class="post-action">↗ Share</span>
+            </div>
+          </div>
+
+          <div class="feed-post">
+            <div class="post-meta">
+              <div class="post-avatar" style="background:#F2A541;color:#0A3D52">KB</div>
+              <div>
+                <div class="post-author">Kahvila Bravo</div>
+                <div class="post-location">🏢 Business · 120m away</div>
+              </div>
+              <div class="post-badge badge-biz">Business</div>
+            </div>
+            <div class="post-text">☕ Happy hour 3–5pm today — all filter coffees €2. Come say hi, neighbors!</div>
+            <div class="post-actions">
+              <span class="post-action">❤️ 18</span>
+              <span class="post-action">💬 3</span>
+              <span class="post-action">🗺 Directions</span>
+            </div>
+          </div>
+
+          <div class="feed-post">
+            <div class="post-meta">
+              <div class="post-avatar" style="background:#5A7A85">?</div>
+              <div>
+                <div class="post-author">Anonymous</div>
+                <div class="post-location">📍 Near Siltasaarenkatu</div>
+              </div>
+              <div class="post-badge badge-anon">Report</div>
+            </div>
+            <div class="post-text">Broken streetlight on Siltasaarenkatu near the park entrance. Third night in a row — reported to city portal but no response yet.</div>
+            <div class="post-actions">
+              <span class="post-action">👍 41</span>
+              <span class="post-action">💬 12</span>
+              <span class="post-action">🔔 Follow</span>
+            </div>
+          </div>
+
+          <div class="app-compose">
+            <div class="compose-bar">What's happening in your neighborhood?</div>
+            <div class="compose-icons">
+              <div class="c-icon">📷</div>
+              <div class="c-icon">🎙</div>
+              <div class="c-icon">🎥</div>
+            </div>
+          </div>
+          <div class="app-tabs">
+            <div class="app-tab active"><span class="tab-icon">🏠</span>Feed</div>
+            <div class="app-tab"><span class="tab-icon">🗺</span>Map</div>
+            <div class="app-tab"><span class="tab-icon">📢</span>Topics</div>
+            <div class="app-tab"><span class="tab-icon">👤</span>Profile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-band full-bleed">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">$74B</div>
+      <div class="stat-label">Local digital ad market</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">60%</div>
+      <div class="stat-label">Urban adults don't know their neighbors</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4.5B</div>
+      <div class="stat-label">Hyperlocal-ready smartphone users</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3 in 5</div>
+      <div class="stat-label">Community issues go unreported</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--white)">
+  <div class="section-label">Simple by design</div>
+  <h2>How Naapurusto Works</h2>
+  <p class="lead">Four steps from download to knowing your neighborhood.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-icon">📍</div>
+      <h3>Set Your Location</h3>
+      <p>Choose your neighborhood and set a radius — from a single street to your whole city. The feed shows only what's relevant to you.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-icon">✏️</div>
+      <h3>Create & Share</h3>
+      <p>Post text, record voice, snap a photo, or film a short clip. Tag your topic and publish to your neighborhood feed instantly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-icon">🕵️</div>
+      <h3>Report Anonymously</h3>
+      <p>File complaints and civic reports without revealing your identity. Trusted contributors earn a verified local badge over time.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-icon">🤝</div>
+      <h3>Engage Together</h3>
+      <p>React, comment, and build a living neighborhood record — one post at a time. Your street has a story. Help tell it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<div class="ecosystem full-bleed" id="ecosystem">
+  <div class="ecosystem-inner">
+    <div class="section-label">Three-sided marketplace</div>
+    <h2 style="color:var(--white)">The Naapurusto Ecosystem</h2>
+    <p style="color:#97C4CC;font-size:17px;margin-top:12px;max-width:580px;line-height:1.7">Every neighborhood has three voices. Naapurusto is the platform that brings them all together.</p>
+    <div class="ecosystem-grid">
+      <div class="eco-card">
+        <div class="eco-icon">🏘️</div>
+        <h3>Citizens</h3>
+        <p>Everyday residents who want to know what's happening on their street, share local knowledge, and hold their community accountable.</p>
+        <div class="eco-contrib">
+          <span>They contribute</span>
+          <span class="eco-tag">Experiences</span>
+          <span class="eco-tag">Tips</span>
+          <span class="eco-tag">Reports</span>
+          <span class="eco-tag">Photos</span>
+          <span class="eco-tag">Voice clips</span>
+        </div>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">🏪</div>
+        <h3>Local Businesses</h3>
+        <p>Shops, cafes, restaurants, and services that want to reach the people who actually walk past their door — not a national audience.</p>
+        <div class="eco-contrib">
+          <span>They contribute</span>
+          <span class="eco-tag">Promotions</span>
+          <span class="eco-tag">Events</span>
+          <span class="eco-tag">Business info</span>
+          <span class="eco-tag">Local jobs</span>
+        </div>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">📰</div>
+        <h3>Local Media</h3>
+        <p>Local newspapers, radio stations, and digital publishers who want a new distribution channel for the neighborhood journalism they produce.</p>
+        <div class="eco-contrib">
+          <span>They contribute</span>
+          <span class="eco-tag">Breaking news</span>
+          <span class="eco-tag">Podcasts</span>
+          <span class="eco-tag">Investigations</span>
+          <span class="eco-tag">Editorials</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features" style="background:#F7FAFB">
+  <div class="section-label">What you can do</div>
+  <h2>Key Features</h2>
+  <p class="lead">Everything you need to stay connected to the place you actually live.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📍</div>
+      <div>
+        <h3>Location-First Feed</h3>
+        <p>Your feed is filtered by geography, not by who you follow. See what's happening on your street, in your district, or across your city — you control the radius.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎙️</div>
+      <div>
+        <h3>Multi-Format Content</h3>
+        <p>Post text, record voice memos, share photos, or publish short videos. All content is size-limited to keep the feed fast, focused, and easy to read.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🕵️</div>
+      <div>
+        <h3>Anonymous Reporting</h3>
+        <p>File complaints, safety reports, and civic issues without revealing who you are. Anonymity protects your identity — not harmful content, which is always moderated.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <div>
+        <h3>Cross-Platform</h3>
+        <p>Full experience on iOS, Android, and web browser. Community kiosks — public touchscreen terminals — are planned for Phase 3 to extend access beyond smartphones.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏅</div>
+      <div>
+        <h3>Verified Local Badges</h3>
+        <p>Active, trusted community members earn a location badge. Badged users get priority placement in feeds and additional credibility with their neighbors.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <div>
+        <h3>Community Topics</h3>
+        <p>Beyond the main feed, users can create and join topic threads — recurring conversations about specific local issues, events, or neighborhood interests.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIVIC IMPACT MODEL -->
+<div id="impact" style="background:var(--dark);padding:80px 40px 70px">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-label">Theory of change</div>
+    <h2 style="color:var(--white);margin-bottom:12px">From Engagement to Impact</h2>
+    <p class="lead" style="color:#97C4CC;margin-bottom:40px">Naapurusto is more than a social platform — it's civic infrastructure. Each feature tier moves communities from individual awareness to real, funded, municipal-level change.</p>
+
+    <div class="impact-header">
+      <div class="impact-hcell">Activity</div>
+      <div class="impact-hcell">Output</div>
+      <div class="impact-hcell">Outcome</div>
+      <div class="impact-hcell">Goal</div>
+      <div class="impact-hcell">Impact</div>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact-activity" style="background:var(--primary)">
+        <div class="tier-num">1</div>
+        <span>Report / Record / Idea</span>
+      </div>
+      <div class="impact-cell">Local issues surfaced &amp; mapped</div>
+      <div class="impact-cell">Neighborhood buy-in</div>
+      <div class="impact-cell">Amplify local voice, co-own solutions</div>
+      <div class="impact-cell">Locals represented</div>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact-activity" style="background:var(--mid)">
+        <div class="tier-num">2</div>
+        <span>Vote / Comment</span>
+      </div>
+      <div class="impact-cell">Community priorities</div>
+      <div class="impact-cell">Democratic point of view</div>
+      <div class="impact-cell">Community sets own agenda</div>
+      <div class="impact-cell">Real priorities emerge</div>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact-activity" style="background:var(--accent)">
+        <div class="tier-num" style="background:rgba(0,0,0,.15);color:var(--dark)">3</div>
+        <span style="color:var(--dark)">Petition with Budget</span>
+      </div>
+      <div class="impact-cell">Local solutions &amp; civic policy</div>
+      <div class="impact-cell">Solutions identified</div>
+      <div class="impact-cell">Accountable, collaborative action</div>
+      <div class="impact-cell">Things get done locally</div>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact-activity" style="background:#1A6B7A">
+        <div class="tier-num">4</div>
+        <span>Crowdsourcing + Gov Funding</span>
+      </div>
+      <div class="impact-cell">What can be done (feasibility)</div>
+      <div class="impact-cell">Shared action plan</div>
+      <div class="impact-cell">Ensure funding flows</div>
+      <div class="impact-cell">Municipal issues resolved</div>
+    </div>
+
+    <p class="impact-assumptions">Assumptions: people want a voice &nbsp;·&nbsp; people can observe local issues firsthand &nbsp;·&nbsp; participation builds trust and local confidence</p>
+  </div>
+</div>
+
+<!-- APP MOCKUP SCREENS -->
+<div class="mockup-section full-bleed" id="screens">
+  <div class="mockup-inner">
+    <div>
+      <div class="section-label">Platform design</div>
+      <h2>Built for every screen</h2>
+      <p class="lead" style="margin-bottom:32px">Naapurusto works beautifully on mobile, tablet, and desktop. The neighborhood feed adapts to whatever device you're using.</p>
+      <div class="screen-tabs">
+        <div class="screen-tab active" onclick="showScreen('feed')">📱 Mobile Feed</div>
+        <div class="screen-tab" onclick="showScreen('map')">🗺️ Map View</div>
+        <div class="screen-tab" onclick="showScreen('compose')">✏️ Create Post</div>
+      </div>
+      <div id="screen-feed" class="screen-content active">
+        <p style="font-size:14px;color:var(--muted);line-height:1.7">The main neighborhood feed shows posts from within your chosen radius, ordered by recency and local relevance. Each post shows the author's distance from you, their trust badge, and the post format.</p>
+      </div>
+      <div id="screen-map" class="screen-content">
+        <p style="font-size:14px;color:var(--muted);line-height:1.7">The map view shows all recent posts as pins on a local map. Tap any pin to read the post. Filter by content type — reports, business promos, news, or community tips. Zoom out to see a wider area.</p>
+      </div>
+      <div id="screen-compose" class="screen-content">
+        <p style="font-size:14px;color:var(--muted);line-height:1.7">The post creation screen lets you choose your format (text, voice, photo, video, or link), add a topic tag, pick your radius, and optionally post anonymously. Character limits keep posts concise.</p>
+      </div>
+    </div>
+    <div>
+      <div class="tablet">
+        <div class="tablet-header">
+          <div class="tablet-logo">NAAPURUSTO</div>
+          <div class="t-search">🔍 Search your neighborhood…</div>
+          <div style="font-size:11px;color:var(--mid)">📍 Kallio</div>
+        </div>
+        <div class="tablet-screen">
+          <div class="tablet-content">
+            <div class="t-map">🗺️</div>
+            <div class="t-posts">
+              <div class="t-post">
+                <h5>🚧 Road Update</h5>
+                <p>Fleminginkatu is clear again! Roadworks officially done after 3 weeks.</p>
+                <div class="t-post-meta">✓ Local · 120m away · 2h ago</div>
+              </div>
+              <div class="t-post" style="border-left:3px solid var(--accent)">
+                <h5>☕ Business Promo</h5>
+                <p>Happy hour at Kahvila Bravo — filter coffee €2 until 5pm today!</p>
+                <div class="t-post-meta">🏢 Business · 90m away · 1h ago</div>
+              </div>
+              <div class="t-post" style="border-left:3px solid var(--muted)">
+                <h5>⚠️ Anonymous Report</h5>
+                <p>Broken streetlight on Siltasaarenkatu — third night in a row.</p>
+                <div class="t-post-meta">🔒 Anonymous · ~200m · 4h ago</div>
+              </div>
+              <div class="t-post">
+                <h5>📰 Local News</h5>
+                <p>Kallio District Association holds open meeting this Thursday, 6pm at community center.</p>
+                <div class="t-post-meta">📰 Media Partner · 5h ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUSINESS MODEL -->
+<section id="business" style="background:var(--white)">
+  <div class="section-label">Revenue strategy</div>
+  <h2>Business Model</h2>
+  <p class="lead">Three revenue streams that mature as the community grows.</p>
+  <div class="biz-grid">
+    <div class="biz-card" style="border-color:var(--primary)">
+      <div class="biz-icon">👤</div>
+      <h3>Premium Profiles</h3>
+      <p>Power users and local journalists upgrade to a premium tier with extended formats, analytics, and priority feed placement.</p>
+      <div class="biz-tag">Subscription · $4.99/mo</div>
+    </div>
+    <div class="biz-card" style="border-color:var(--mid)">
+      <div class="biz-icon">📰</div>
+      <h3>Sponsored Local Content</h3>
+      <p>Local newspapers and media partners pay a monthly licensing fee to distribute branded stories and news segments into neighborhood feeds.</p>
+      <div class="biz-tag">B2B Licensing · $500–2K/mo</div>
+    </div>
+    <div class="biz-card" style="border-color:var(--accent)">
+      <div class="biz-icon">🏪</div>
+      <h3>Business Partnerships</h3>
+      <p>Local shops and services promote geo-fenced offers to the people nearest them. Pay monthly flat-fee or per impression.</p>
+      <div class="biz-tag">Local Ads · $49–199/mo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" style="background:#F7FAFB">
+  <div class="section-label">What's coming</div>
+  <h2>Development Roadmap</h2>
+  <p class="lead">Three phases, city by city, from MVP to self-sustaining platform.</p>
+  <div class="roadmap">
+    <div class="phase">
+      <div class="phase-dot" style="background:var(--primary)">1</div>
+      <div class="phase-period">Q1–Q2 2026</div>
+      <h3>MVP & Pilot City</h3>
+      <ul>
+        <li>iOS & Android app launch</li>
+        <li>Pilot in 1 metro neighborhood</li>
+        <li>Core feed + location filter</li>
+        <li>Anonymous report flow</li>
+        <li>Basic moderation tools</li>
+      </ul>
+      <div class="phase-target" style="background:var(--light);color:var(--primary)">🎯 500 founding users</div>
+    </div>
+    <div class="phase">
+      <div class="phase-dot" style="background:var(--mid)">2</div>
+      <div class="phase-period">Q3 2026–2027</div>
+      <h3>Community Growth</h3>
+      <ul>
+        <li>Expand to 5+ cities</li>
+        <li>Business profiles & promos</li>
+        <li>Local media integrations</li>
+        <li>Video support</li>
+        <li>Premium subscription tier</li>
+      </ul>
+      <div class="phase-target" style="background:#E0F4F7;color:var(--mid)">🎯 10,000 MAU</div>
+    </div>
+    <div class="phase">
+      <div class="phase-dot" style="background:var(--accent)">3</div>
+      <div class="phase-period">2028+</div>
+      <h3>Scale & Monetize</h3>
+      <ul>
+        <li>Sponsored content marketplace</li>
+        <li>30+ cities live</li>
+        <li>Community kiosk pilots</li>
+        <li>Open API ecosystem</li>
+        <li>International expansion</li>
+      </ul>
+      <div class="phase-target" style="background:#FEF3E0;color:#B87A2A">🎯 100,000 MAU · Breakeven</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section full-bleed">
+  <div style="max-width:700px;margin:0 auto">
+    <div class="section-label" style="color:var(--mid);text-align:center">Join the movement</div>
+    <h2>Be first in your neighborhood.</h2>
+    <p>Naapurusto is in early development. Join the founding community — and help shape what it becomes.</p>
+    <div class="cta-buttons">
+      <button class="app-store-btn">
+        <span class="app-store-icon">🍎</span>
+        <div>
+          <span class="app-store-sub">Download on the</span>
+          App Store
+        </div>
+      </button>
+      <button class="app-store-btn">
+        <span class="app-store-icon">▶</span>
+        <div>
+          <span class="app-store-sub">Get it on</span>
+          Google Play
+        </div>
+      </button>
+      <button class="btn-primary" style="background:var(--accent)">
+        ✉️ Get Early Access
+      </button>
+    </div>
+    <p style="margin-top:24px;font-size:13px;color:rgba(255,255,255,.4)">Questions? jane.vita@gmail.com</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">NAAP<span style="color:var(--accent)">.</span>URUSTO</div>
+      <p>Your neighborhood. Your voice. A hyperlocal community platform built on the belief that the best cities are made of people who know each other.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#">How It Works</a>
+      <a href="#">Features</a>
+      <a href="#">Roadmap</a>
+      <a href="#">Download App</a>
+    </div>
+    <div class="footer-col">
+      <h4>For Business</h4>
+      <a href="#">Business Profiles</a>
+      <a href="#">Local Advertising</a>
+      <a href="#">Media Partners</a>
+      <a href="#">API Access</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Investors</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Naapurusto. All rights reserved.</span>
+    <span>Made with ❤️ for neighborhoods everywhere.</span>
+  </div>
+</footer>
+
+<script>
+function showScreen(id) {
+  document.querySelectorAll('.screen-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.screen-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+// Tab interaction (app tabs)
+document.querySelectorAll('.app-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.app-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
